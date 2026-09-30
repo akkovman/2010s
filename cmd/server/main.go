@@ -1,6 +1,7 @@
 package main
 
 import (
+	"2010s/internal/ws"
 	"context"
 	"log"
 	"net/http"
@@ -13,7 +14,12 @@ import (
 )
 
 func main() {
+	hub := ws.NewHub()
 	router := gin.Default()
+
+	go hub.Run()
+
+	router.GET("/ws", hub.HandleWS)
 
 	srv := &http.Server{
 		Addr:    ":3000",
