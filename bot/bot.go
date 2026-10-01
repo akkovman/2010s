@@ -8,4 +8,7 @@ import (
 type Bot struct {
 	hub *ws.Hub
 	db  *sql.DB
+
+	botState BotState
+	botMood  Mood
 }
