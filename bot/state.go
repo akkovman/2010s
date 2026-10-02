@@ -29,6 +29,18 @@ func (b *Bot) UpdateState(in Mood, value int) {
 	}
 
 	b.BotState.Moods[in] = value
+
+	maxVolume := -1
+	dominantMood := Joy
+
+	for moodIndex, volume := range b.BotState.Moods {
+		if volume > maxVolume {
+			maxVolume = volume
+			dominantMood = Mood(moodIndex)
+		}
+	}
+
+	b.BotMood = dominantMood
 }
 
 type InState struct {
