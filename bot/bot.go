@@ -39,3 +39,7 @@ func (b *Bot) Run() {
 		}
 	}
 }
+
+func (b *Bot) decayEmotions() {
+
+}
