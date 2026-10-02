@@ -42,8 +42,3 @@ func (b *Bot) UpdateState(in Mood, value int) {
 
 	b.BotMood = dominantMood
 }
-
-type InState struct {
-	In    Mood
-	Value int
-}
