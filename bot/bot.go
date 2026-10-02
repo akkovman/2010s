@@ -13,3 +13,16 @@ type Bot struct {
 	BotMood   Mood
 	SendState chan InState
 }
+
+func NewBot(
+	h *ws.Hub,
+	db *sql.DB,
+	initialState BotState) *Bot {
+	return &Bot{
+		hub: h,
+		db:  db,
+
+		BotState:  initialState,
+		SendState: make(chan InState),
+	}
+}
