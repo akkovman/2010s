@@ -35,9 +35,20 @@ func (b *Bot) Run() {
 	for {
 		select {
 		case <-emotionTicker.C:
-			continue
+			b.decayEmotions()
 		}
 	}
+}
+
+/*
+Function take current value of mood and, adds the delta,
+and ensures the value stays within 0 and 100
+*/
+func (b *Bot) changeEmotion(mood Mood, delta int) {
+	currentValue := b.BotState.moods[mood]
+	newValue := max(0, min(100, currentValue+delta))
+
+	b.updateState(mood, newValue)
 }
 
 func (b *Bot) decayEmotions() {
