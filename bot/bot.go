@@ -10,8 +10,9 @@ type Bot struct {
 	hub *ws.Hub
 	db  *sql.DB
 
-	BotState BotState
-	BotMood  Mood
+	BotState  BotState
+	BotMood   Mood
+	SendEvent chan BotEvent
 }
 
 func NewBot(
@@ -22,7 +23,8 @@ func NewBot(
 		hub: h,
 		db:  db,
 
-		BotState: initialState,
+		BotState:  initialState,
+		SendEvent: make(chan BotEvent),
 	}
 }
 
@@ -34,6 +36,8 @@ func (b *Bot) Run() {
 
 	for {
 		select {
+		case event := <-b.SendEvent:
+			b.handleEvent(event)
 		case <-emotionTicker.C:
 			b.decayEmotions()
 		}
@@ -58,4 +62,8 @@ func (b *Bot) decayEmotions() {
 	b.changeEmotion(Anger, -10)
 	b.changeEmotion(Fear, -3)
 	b.changeEmotion(Disgust, -1)
+}
+
+func (b *Bot) handleEvent(event BotEvent) {
+
 }
