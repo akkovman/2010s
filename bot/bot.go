@@ -3,6 +3,7 @@ package bot
 import (
 	"2010s/internal/ws"
 	"database/sql"
+	"time"
 )
 
 type Bot struct {
@@ -24,5 +25,19 @@ func NewBot(
 
 		BotState:  initialState,
 		SendState: make(chan InState),
+	}
+}
+
+func (b *Bot) Run() {
+	emotionTicker := time.NewTicker(15 * time.Second)
+	defer func() {
+		emotionTicker.Stop()
+	}()
+
+	for {
+		select {
+		case <-emotionTicker.C:
+			continue
+		}
 	}
 }
