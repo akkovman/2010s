@@ -10,8 +10,8 @@ type Bot struct {
 	hub *ws.Hub
 	db  *sql.DB
 
-	BotState  BotState
-	BotMood   Mood
+	botState  BotState
+	botMood   Mood
 	SendEvent chan BotEvent
 }
 
@@ -23,7 +23,7 @@ func NewBot(
 		hub: h,
 		db:  db,
 
-		BotState:  initialState,
+		botState:  initialState,
 		SendEvent: make(chan BotEvent),
 	}
 }
@@ -49,7 +49,7 @@ Function take current value of mood and, adds the delta,
 and ensures the value stays within 0 and 100
 */
 func (b *Bot) changeEmotion(mood Mood, delta int) {
-	currentValue := b.BotState.moods[mood]
+	currentValue := b.botState.moods[mood]
 	newValue := max(0, min(100, currentValue+delta))
 
 	b.updateState(mood, newValue)
