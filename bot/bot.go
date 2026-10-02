@@ -52,5 +52,10 @@ func (b *Bot) changeEmotion(mood Mood, delta int) {
 }
 
 func (b *Bot) decayEmotions() {
-
+	// Every 15 seconds
+	b.changeEmotion(Joy, -5)
+	b.changeEmotion(Sadness, 2)
+	b.changeEmotion(Anger, -10)
+	b.changeEmotion(Fear, -3)
+	b.changeEmotion(Disgust, -1)
 }
