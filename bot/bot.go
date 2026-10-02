@@ -24,7 +24,7 @@ func NewBot(
 		db:  db,
 
 		botState:  initialState,
-		SendEvent: make(chan BotEvent),
+		SendEvent: make(chan BotEvent, 16),
 	}
 }
 
