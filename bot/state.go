@@ -30,3 +30,8 @@ func (b *Bot) updateState(in Mood, value int) {
 
 	b.botState.moods[in] = value
 }
+
+type inState struct {
+	in    Mood
+	value int
+}
