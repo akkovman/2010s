@@ -10,9 +10,8 @@ type Bot struct {
 	hub *ws.Hub
 	db  *sql.DB
 
-	BotState  BotState
-	BotMood   Mood
-	SendState chan InState
+	BotState BotState
+	BotMood  Mood
 }
 
 func NewBot(
@@ -23,8 +22,7 @@ func NewBot(
 		hub: h,
 		db:  db,
 
-		BotState:  initialState,
-		SendState: make(chan InState),
+		BotState: initialState,
 	}
 }
 
