@@ -15,10 +15,10 @@ const (
 
 // BotState containing bot's emotional state
 type BotState struct {
-	Moods [moodCount]int
+	moods [moodCount]int
 }
 
-func (b *Bot) UpdateState(in Mood, value int) {
+func (b *Bot) updateState(in Mood, value int) {
 	if !(in >= 0 && in < moodCount) {
 		return
 	}
@@ -28,12 +28,12 @@ func (b *Bot) UpdateState(in Mood, value int) {
 		return
 	}
 
-	b.BotState.Moods[in] = value
+	b.BotState.moods[in] = value
 
 	maxVolume := -1
 	dominantMood := Joy
 
-	for moodIndex, volume := range b.BotState.Moods {
+	for moodIndex, volume := range b.BotState.moods {
 		if volume > maxVolume {
 			maxVolume = volume
 			dominantMood = Mood(moodIndex)
