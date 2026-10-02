@@ -19,7 +19,14 @@ type BotState struct {
 }
 
 func (b *Bot) updateState(in Mood, value int) {
-	if in >= 0 && in < moodCount {
-		b.botState.moods[in] = value
+	if !(in >= 0 && in < moodCount) {
+		return
 	}
+
+	// 0 <= moodValue <= 100
+	if !(value >= 0 && value <= 100) {
+		return
+	}
+
+	b.botState.moods[in] = value
 }
