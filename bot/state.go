@@ -15,10 +15,10 @@ const (
 
 // BotState containing bot's emotional state
 type BotState struct {
-	moods [moodCount]int
+	Moods [moodCount]int
 }
 
-func (b *Bot) updateState(in Mood, value int) {
+func (b *Bot) UpdateState(in Mood, value int) {
 	if !(in >= 0 && in < moodCount) {
 		return
 	}
@@ -28,10 +28,10 @@ func (b *Bot) updateState(in Mood, value int) {
 		return
 	}
 
-	b.botState.moods[in] = value
+	b.BotState.Moods[in] = value
 }
 
-type inState struct {
-	in    Mood
-	value int
+type InState struct {
+	In    Mood
+	Value int
 }

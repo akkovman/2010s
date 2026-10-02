@@ -9,6 +9,7 @@ type Bot struct {
 	hub *ws.Hub
 	db  *sql.DB
 
-	botState BotState
-	botMood  Mood
+	BotState  BotState
+	BotMood   Mood
+	SendState chan InState
 }
