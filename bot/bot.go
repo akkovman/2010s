@@ -65,5 +65,19 @@ func (b *Bot) decayEmotions() {
 }
 
 func (b *Bot) handleEvent(event BotEvent) {
+	effects := map[ReactionType][]struct {
+		mood  Mood
+		delta int
+	}{
+		PositiveComment: {{Joy, 10}, {Anger, -5}, {Sadness, -10}},
+		NegativeComment: {{Anger, 15}, {Sadness, 10}, {Joy, -15}},
+		PostLiked:       {{Joy, 5}},
+		PostDisliked:    {{Sadness, 8}},
+		FriendAdded:     {{Joy, 20}, {Sadness, -10}},
+		FriendRemoved:   {{Sadness, 25}, {Anger, 10}},
+	}
 
+	for _, effect := range effects[event.Type] {
+		b.changeEmotion(effect.mood, effect.delta)
+	}
 }
