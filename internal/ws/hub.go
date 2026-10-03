@@ -5,6 +5,8 @@ type Hub struct {
 
 	register   chan *Client
 	unregister chan *Client
+
+	Broadcast chan []byte
 }
 
 func NewHub() *Hub {
@@ -25,6 +27,15 @@ func (h *Hub) Run() {
 			if _, ok := h.clients[client]; ok {
 				delete(h.clients, client)
 				close(client.send)
+			}
+		case data := <-h.Broadcast:
+			for client := range h.clients {
+				select {
+				case client.send <- data:
+				default:
+					close(client.send)
+					delete(h.clients, client)
+				}
 			}
 		}
 	}
